@@ -16,18 +16,28 @@ const App = () => {
   const calculateLoveScore = (name1, name2) => {
     // calculate the love score using a simple algorithm
     const totalAscii = name1
+      .toLowerCase()
       .split("")
-      .concat(name2.split(""))
+      .concat(name2.toLowerCase().split(""))
       .map((char) => char.charCodeAt(0))
       .reduce((acc, val) => acc + val, 0);
+
     return Math.floor(totalAscii / 10) % 101; // score ranges from 0 to 100
   };
   return (
     <div className="h-screen font-Explora  bg-gradient-to-tr from-pink-600 to-red-500">
       <div>
-        <h1 className="text-8xl pt-4 text-center font-bold  text-white">
-          Love Calculator!
-        </h1>
+        {score > 0 ? (
+          <div className="flex flex-col  items-center text-white text-2xl justify-center font-Explora">
+            <h1 className="text-6xl">Your love score is:</h1>
+            <h1 className="text-yellow-300 text-6xl font-bold">{score} %</h1>
+          </div>
+        ) : (
+          <h1 className="text-8xl pt-4 text-center font-bold  text-white">
+            Love Calculator!
+          </h1>
+        )}
+
         <form onSubmit={handleSubmit}>
           <div className="flex font-roboto flex-col items-center justify-center mt-4 md:flex-row">
             <input
@@ -36,6 +46,7 @@ const App = () => {
               onChange={(e) => setName1(e.target.value)}
               className="bg-transparent border-2 m-4 border-gray-200 rounded-md pl-2 placeholder-gray-200 text-white outline-none text-center"
               placeholder="Name 1"
+              required
             ></input>
             <input
               type={"text"}
@@ -43,6 +54,7 @@ const App = () => {
               onChange={(e) => setName2(e.target.value)}
               className="bg-transparent border-2 border-gray-200 rounded-md pl-2 placeholder-gray-200 text-white outline-none text-center"
               placeholder="Name 2"
+              required
             ></input>
             <button
               type="submit"
@@ -52,12 +64,6 @@ const App = () => {
             </button>
           </div>
         </form>
-        {score > 0 && (
-          <div className="flex flex-col mt-3 items-center text-white text-2xl justify-center font-Explora">
-            <h1 className="text-6xl">Your love score is:</h1>
-            <h1 className="text-yellow-300 text-6xl font-bold">{score} %</h1>
-          </div>
-        )}
       </div>
       <footer className="text-white text-lg font-roboto fixed bottom-2 w-screen flex justify-center">
         <h1>
