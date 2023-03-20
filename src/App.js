@@ -45,7 +45,7 @@ const App = () => {
               value={name1}
               onChange={(e) => setName1(e.target.value)}
               className="bg-transparent border-2 m-4 border-gray-200 rounded-md pl-2 placeholder-gray-200 text-white outline-none text-center"
-              placeholder="Name 1"
+              placeholder="Your Name"
               required
             ></input>
             <input
@@ -53,7 +53,7 @@ const App = () => {
               value={name2}
               onChange={(e) => setName2(e.target.value)}
               className="bg-transparent border-2 border-gray-200 rounded-md pl-2 placeholder-gray-200 text-white outline-none text-center"
-              placeholder="Name 2"
+              placeholder="Partner/Crush's name"
               required
             ></input>
             <button
