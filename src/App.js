@@ -23,14 +23,12 @@ const App = () => {
             score: score,
           }),
         });
-        const data=response.text();
-        console.log(data)
-
+        const data = response.text();
+        console.log(data);
       }
       sendMail();
     }
-  
-  }, [name1,name2,score]);
+  }, [score]);
 
   const calculateLoveScore = (name1, name2) => {
     // calculate the love score using a simple algorithm
