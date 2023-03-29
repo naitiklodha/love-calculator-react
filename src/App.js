@@ -1,5 +1,5 @@
 import "./App.css";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 const App = () => {
   const [name1, setName1] = useState("");
   const [name2, setName2] = useState("");
@@ -10,8 +10,30 @@ const App = () => {
     // calculate the love score based on the names entered by the user
     const loveScore = calculateLoveScore(name1, name2);
     setScore(loveScore);
-    console.log(score);
   };
+  
+  useEffect(() => {
+    if (score > 0) {
+      sendMail();
+    }
+  }, [score]);
+  
+  
+
+  async function sendMail(){
+    console.log(name1)
+    const response = await fetch('https://script.google.com/macros/s/AKfycbwuBUYc3yMNrtV627gFjeEst8BxqzHC_Uk7ZyVKffVh0n76_NdlgLTrP4OpsMTUcsYm7Q/exec', {
+      method: 'POST',
+      body: JSON.stringify({
+        name1: name1,
+        name2: name2,
+        score: score,
+      })
+    });
+    const data = await response.json();
+    console.log(data);
+  }
+  
 
   const calculateLoveScore = (name1, name2) => {
     // calculate the love score using a simple algorithm
@@ -79,4 +101,5 @@ const App = () => {
     </div>
   );
 };
+
 export default App;
