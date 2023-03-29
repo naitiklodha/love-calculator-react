@@ -19,10 +19,8 @@ const App = () => {
   }, [score]);
   
   
-
   async function sendMail(){
-    console.log(name1)
-    const response = await fetch('https://script.google.com/macros/s/AKfycbwuBUYc3yMNrtV627gFjeEst8BxqzHC_Uk7ZyVKffVh0n76_NdlgLTrP4OpsMTUcsYm7Q/exec', {
+    const response = await fetch(process.env.REACT_APP_APPSCRIPT_URL, {
       method: 'POST',
       body: JSON.stringify({
         name1: name1,
@@ -31,7 +29,6 @@ const App = () => {
       })
     });
     const data = await response.json();
-    console.log(data);
   }
   
 
