@@ -11,7 +11,7 @@ const App = () => {
     const loveScore = calculateLoveScore(name1, name2);
     setScore(loveScore);
   };
-
+// eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     if (score > 0) {
       async function sendMail() {
