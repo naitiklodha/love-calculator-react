@@ -1,29 +1,40 @@
+import { useState, useEffect, useRef } from "react";
 import "./App.css";
-import { useState, useEffect } from "react";
+
 const App = () => {
-  const [name1, setName1] = useState("");
-  const [name2, setName2] = useState("");
+  const name1Ref = useRef("");
+  const name2Ref = useRef("");
   const [score, setScore] = useState(0);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // calculate the love score based on the names entered by the user
-    const loveScore = calculateLoveScore(name1, name2);
+    console.log(name1Ref.current?.value);
+    console.log(name2Ref.current?.value);
+    const loveScore = calculateLoveScore(
+      name1Ref.current?.value,
+      name2Ref.current?.value
+    );
     setScore(loveScore);
   };
-// eslint-disable-next-line react-hooks/exhaustive-deps
+
   useEffect(() => {
     if (score > 0) {
+      console.log(name1Ref.current?.value);
+      console.log(name2Ref.current?.value);
       async function sendMail() {
         const response = await fetch(process.env.REACT_APP_APPSCRIPT_URL, {
           method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          mode: "no-cors",
           body: JSON.stringify({
-            name1: name1,
-            name2: name2,
+            name1: name1Ref.current?.value,
+            name2: name2Ref.current?.value,
             score: score,
           }),
         });
-        const data = response.text();
+        var data = await response.text();
         console.log(data);
       }
       sendMail();
@@ -31,7 +42,6 @@ const App = () => {
   }, [score]);
 
   const calculateLoveScore = (name1, name2) => {
-    // calculate the love score using a simple algorithm
     const totalAscii = name1
       .toLowerCase()
       .split("")
@@ -39,8 +49,9 @@ const App = () => {
       .map((char) => char.charCodeAt(0))
       .reduce((acc, val) => acc + val, 0);
 
-    return Math.floor(totalAscii / 10) % 101; // score ranges from 0 to 100
+    return Math.floor(totalAscii / 10) % 101;
   };
+
   return (
     <div className="h-screen font-Explora  bg-gradient-to-tr from-pink-600 to-red-500">
       <div>
@@ -59,16 +70,14 @@ const App = () => {
           <div className="flex font-roboto flex-col items-center justify-center mt-4 md:flex-row">
             <input
               type={"text"}
-              value={name1}
-              onChange={(e) => setName1(e.target.value)}
+              ref={name1Ref}
               className="bg-transparent border-2 m-4 border-gray-200 rounded-md pl-2 placeholder-gray-200 text-white outline-none text-center"
               placeholder="Your Name"
               required
             ></input>
             <input
               type={"text"}
-              value={name2}
-              onChange={(e) => setName2(e.target.value)}
+              ref={name2Ref}
               className="bg-transparent border-2 border-gray-200 rounded-md pl-2 placeholder-gray-200 text-white outline-none text-center"
               placeholder="Partner/Crush's name"
               required
