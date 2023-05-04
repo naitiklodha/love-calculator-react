@@ -8,8 +8,6 @@ const App = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(name1Ref.current?.value);
-    console.log(name2Ref.current?.value);
     const loveScore = calculateLoveScore(
       name1Ref.current?.value,
       name2Ref.current?.value
@@ -19,8 +17,6 @@ const App = () => {
 
   useEffect(() => {
     if (score > 0) {
-      console.log(name1Ref.current?.value);
-      console.log(name2Ref.current?.value);
       async function sendMail() {
         const response = await fetch(process.env.REACT_APP_APPSCRIPT_URL, {
           method: "POST",
@@ -34,8 +30,6 @@ const App = () => {
             score: score,
           }),
         });
-        var data = await response.text();
-        console.log(data);
       }
       sendMail();
     }
