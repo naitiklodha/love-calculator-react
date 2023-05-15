@@ -89,7 +89,7 @@ const App = () => {
         <h1>
           Made with <span className="animate-pulse">🤍</span> by{" "}
           <a
-            href="https://github.com/naitik-lodha"
+            href="https://naitik-lodha.netlify.app/"
             className="font-bold italic  hover:text-yellow-500 hover:underline"
           >
             Naitik Lodha
